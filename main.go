@@ -1,24 +1,17 @@
 package main
 
 import (
-	"io/ioutil"
+	"fmt"
+	"http-api/client"
 	"log"
-	"net/http"
 )
 
 func main() {
-	resp, err := http.Get("https://jsonplaceholder.typicode.com/posts")
+	post, err := client.Fetch()
 
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	sb := string(body)
-	log.Printf(sb)
+	fmt.Println(post)
 }

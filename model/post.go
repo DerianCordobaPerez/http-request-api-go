@@ -5,12 +5,18 @@ import (
 )
 
 type Post []struct {
-	UserId string `json:userId`
-	Id     string `json:id`
+	UserId int    `json:userId`
+	Id     int    `json:id`
 	Title  string `json:title`
 	Body   string `json:body`
 }
 
-func (post Post) TextOutput() string {
-	return fmt.Sprintf("Id: %s\nTitle: %s\nBody: %s\n", post[0].Id, post[0].Title, post[0].Body)
+func (posts Post) Get() string {
+	result := ""
+
+	for _, post := range posts {
+		result += fmt.Sprintf("Id: %d\nTitle: %s\nBody: %s\n", post.Id, post.Title, post.Body)
+	}
+
+	return result
 }
