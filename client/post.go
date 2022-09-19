@@ -3,6 +3,7 @@ package client
 import (
 	"encoding/json"
 	"http-api/model"
+	"io"
 	"log"
 	"net/http"
 )
@@ -20,9 +21,9 @@ func Fetch() (string, error) {
 
 	var post model.Post
 
-	if err := json.NewDecoder(resp.Body).Decode(&post); err != nil {
-		log.Fatal("Error while generate json ", err)
-	}
+	bytes, err := io.ReadAll(resp.Body)
 
-	return post.Get(), nil
+	err = json.Unmarshal(bytes, &post)
+
+	return post.Get(), err
 }
